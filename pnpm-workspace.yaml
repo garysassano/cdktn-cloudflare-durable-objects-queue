@@ -1,0 +1,17 @@
+packages:
+  - "."
+
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+minimumReleaseAge: 4320
+minimumReleaseAgeStrict: true
+
+minimumReleaseAgeExclude:
+  - '@vitest/mocker@5.0.0'
+  - '@vitest/spy@5.0.0'
+  - vitest@5.0.0
+
+# mise owns the package-manager binary.
+pmOnFail: ignore

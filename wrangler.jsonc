@@ -1,0 +1,18 @@
+// Wrangler owns the Worker *bundle* only: `pnpm bundle` runs
+// `wrangler deploy --dry-run --outdir dist` and cdktn/Terraform uploads the
+// result. Keep the runtime settings here in sync with `src/stacks/my-stack.ts`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-worker",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-08-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "durable_objects": {
+    "bindings": [{ "name": "MY_DO_NAMESPACE", "class_name": "MyDurableObject" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyDurableObject"] }],
+  "queues": {
+    "producers": [{ "queue": "my-queue", "binding": "MY_QUEUE" }]
+  }
+}
